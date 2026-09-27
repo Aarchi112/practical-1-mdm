@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration Form</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-blue-50 min-h-screen flex items-center justify-center p-5">
+
+    <div class="bg-white w-full max-w-lg p-8 rounded-2xl shadow-xl">
+
+        <h1 class="text-3xl font-bold text-center text-blue-600 mb-2">
+            Student Registration
+        </h1>
+
+        <p class="text-center text-gray-500 mb-6">
+            College Admission Portal
+        </p>
+
+        <form id="registrationForm">
+
+            <!-- Name -->
+            <div class="mb-4">
+                <label class="block font-semibold mb-2">
+                    Full Name
+                </label>
+
+                <input
+                    type="text"
+                    id="name"
+                    placeholder="Enter your name"
+                    class="w-full border rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                >
+
+                <p id="nameError" class="text-red-500 text-sm mt-1"></p>
+            </div>
+
+            <!-- Email -->
+            <div class="mb-4">
+                <label class="block font-semibold mb-2">
+                    Email
+                </label>
+
+                <input
+                    type="text"
+                    id="email"
+                    placeholder="example@gmail.com"
+                    class="w-full border rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                >
+
+                <p id="emailError" class="text-red-500 text-sm mt-1"></p>
+            </div>
+
+            <!-- Mobile -->
+            <div class="mb-4">
+                <label class="block font-semibold mb-2">
+                    Mobile Number
+                </label>
+
+                <input
+                    type="text"
+                    id="mobile"
+                    placeholder="Enter 10 digit mobile number"
+                    maxlength="10"
+                    class="w-full border rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                >
+
+                <p id="mobileError" class="text-red-500 text-sm mt-1"></p>
+            </div>
+
+            <!-- Password -->
+            <div class="mb-4">
+                <label class="block font-semibold mb-2">
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Minimum 6 characters"
+                    class="w-full border rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                >
+
+                <p id="passwordError" class="text-red-500 text-sm mt-1"></p>
+            </div>
+
+            <!-- Course -->
+            <div class="mb-6">
+                <label class="block font-semibold mb-2">
+                    Course
+                </label>
+
+                <select
+                    id="course"
+                    class="w-full border rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                >
+                    <option value="">Select Course</option>
+                    <option value="CSE">Computer Science</option>
+                    <option value="DS">Data Science</option>
+                    <option value="IT">Information Technology</option>
+                    <option value="ECE">Electronics</option>
+                </select>
+
+                <p id="courseError" class="text-red-500 text-sm mt-1"></p>
+            </div>
+
+            <!-- Submit -->
+            <button
+                type="submit"
+                class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-lg"
+            >
+                Register
+            </button>
+
+        </form>
+
+        <!-- Success Message -->
+        <div
+            id="success"
+            class="hidden mt-5 bg-green-100 text-green-700 p-4 rounded-lg text-center font-semibold"
+        >
+            Registration Successful!
+        </div>
+
+    </div>
+
+
+    <!-- JavaScript -->
+    <script>
+
+        // Get form
+        const form = document.getElementById("registrationForm");
+
+        // Add submit event
+        form.addEventListener("submit", function(event) {
+
+            // Stop form submission
+            event.preventDefault();
+
+            // Get input values
+            const name = document.getElementById("name").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const mobile = document.getElementById("mobile").value.trim();
+            const password = document.getElementById("password").value;
+            const course = document.getElementById("course").value;
+
+            // Get error elements
+            const nameError = document.getElementById("nameError");
+            const emailError = document.getElementById("emailError");
+            const mobileError = document.getElementById("mobileError");
+            const passwordError = document.getElementById("passwordError");
+            const courseError = document.getElementById("courseError");
+
+            // Clear old errors
+            nameError.textContent = "";
+            emailError.textContent = "";
+            mobileError.textContent = "";
+            passwordError.textContent = "";
+            courseError.textContent = "";
+
+            let valid = true;
+
+
+            // 1. Name validation
+            if (name === "") {
+                nameError.textContent = "Name is required";
+                valid = false;
+            }
+
+
+            // 2. Email validation
+            const emailPattern =
+                /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (email === "") {
+                emailError.textContent = "Email is required";
+                valid = false;
+            }
+            else if (!emailPattern.test(email)) {
+                emailError.textContent = "Enter a valid email";
+                valid = false;
+            }
+
+
+            // 3. Mobile validation
+            const mobilePattern = /^[0-9]{10}$/;
+
+            if (mobile === "") {
+                mobileError.textContent = "Mobile number is required";
+                valid = false;
+            }
+            else if (!mobilePattern.test(mobile)) {
+                mobileError.textContent =
+                    "Mobile number must contain 10 digits";
+                valid = false;
+            }
+
+
+            // 4. Password validation
+            if (password === "") {
+                passwordError.textContent = "Password is required";
+                valid = false;
+            }
+            else if (password.length < 6) {
+                passwordError.textContent =
+                    "Password must be at least 6 characters";
+                valid = false;
+            }
+
+
+            // 5. Course validation
+            if (course === "") {
+                courseError.textContent = "Please select a course";
+                valid = false;
+            }
+
+
+            // If all fields are valid
+            if (valid) {
+
+                document.getElementById("success")
+                    .classList.remove("hidden");
+
+                alert("Registration Successful!");
+
+                // Clear form
+                form.reset();
+            }
+
+        });
+
+    </script>
+
+</body>
+</html>
