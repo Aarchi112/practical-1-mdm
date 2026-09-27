@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>College FAQ Portal</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-5">
+
+    <div class="w-full max-w-3xl bg-white rounded-2xl shadow-xl p-8">
+
+        <!-- Heading -->
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-blue-700">
+                College Help Portal
+            </h1>
+
+            <p class="text-gray-500 mt-2">
+                Frequently Asked Questions
+            </p>
+        </div>
+
+        <!-- FAQ Container -->
+        <div id="faqContainer" class="space-y-4">
+
+            <!-- FAQ 1 -->
+            <div class="border border-gray-200 rounded-xl overflow-hidden">
+
+                <button
+                    class="faq-question w-full flex justify-between items-center text-left p-5 bg-gray-50 hover:bg-blue-50 transition font-semibold text-gray-800"
+                >
+                    <span>How can I register for a course?</span>
+
+                    <span class="arrow text-blue-600 text-xl">+</span>
+                </button>
+
+                <div class="faq-answer hidden px-5 pb-5 text-gray-600">
+                    You can register for courses through the college student portal
+                    during the registration period.
+                </div>
+
+            </div>
+
+
+            <!-- FAQ 2 -->
+            <div class="border border-gray-200 rounded-xl overflow-hidden">
+
+                <button
+                    class="faq-question w-full flex justify-between items-center text-left p-5 bg-gray-50 hover:bg-blue-50 transition font-semibold text-gray-800"
+                >
+                    <span>How can I check my attendance?</span>
+
+                    <span class="arrow text-blue-600 text-xl">+</span>
+                </button>
+
+                <div class="faq-answer hidden px-5 pb-5 text-gray-600">
+                    Log in to the student portal and open the Attendance section
+                    to view your subject-wise attendance.
+                </div>
+
+            </div>
+
+
+            <!-- FAQ 3 -->
+            <div class="border border-gray-200 rounded-xl overflow-hidden">
+
+                <button
+                    class="faq-question w-full flex justify-between items-center text-left p-5 bg-gray-50 hover:bg-blue-50 transition font-semibold text-gray-800"
+                >
+                    <span>Where can I find the examination timetable?</span>
+
+                    <span class="arrow text-blue-600 text-xl">+</span>
+                </button>
+
+                <div class="faq-answer hidden px-5 pb-5 text-gray-600">
+                    The examination timetable is available on the college website
+                    and student notice portal.
+                </div>
+
+            </div>
+
+
+            <!-- FAQ 4 -->
+            <div class="border border-gray-200 rounded-xl overflow-hidden">
+
+                <button
+                    class="faq-question w-full flex justify-between items-center text-left p-5 bg-gray-50 hover:bg-blue-50 transition font-semibold text-gray-800"
+                >
+                    <span>How can I contact the department?</span>
+
+                    <span class="arrow text-blue-600 text-xl">+</span>
+                </button>
+
+                <div class="faq-answer hidden px-5 pb-5 text-gray-600">
+                    You can contact the department office during working hours
+                    or use the contact details provided on the college website.
+                </div>
+
+            </div>
+
+
+            <!-- FAQ 5 -->
+            <div class="border border-gray-200 rounded-xl overflow-hidden">
+
+                <button
+                    class="faq-question w-full flex justify-between items-center text-left p-5 bg-gray-50 hover:bg-blue-50 transition font-semibold text-gray-800"
+                >
+                    <span>How can I apply for a leave?</span>
+
+                    <span class="arrow text-blue-600 text-xl">+</span>
+                </button>
+
+                <div class="faq-answer hidden px-5 pb-5 text-gray-600">
+                    Submit the leave application through the college portal
+                    or contact your class coordinator.
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Footer -->
+        <p class="text-center text-gray-400 text-sm mt-8">
+            College Student Help Portal
+        </p>
+
+    </div>
+
+
+    <!-- JavaScript -->
+    <script>
+
+        // Select all FAQ questions
+        const questions = document.querySelectorAll(".faq-question");
+
+        // Add event listener to every question
+        questions.forEach(function(question) {
+
+            question.addEventListener("click", function() {
+
+                // Find answer belonging to this question
+                const answer = question.nextElementSibling;
+
+                // Find plus/minus icon
+                const arrow = question.querySelector(".arrow");
+
+                // Show or hide answer
+                answer.classList.toggle("hidden");
+
+                // Change + to -
+                if (answer.classList.contains("hidden")) {
+                    arrow.textContent = "+";
+                } else {
+                    arrow.textContent = "−";
+                }
+
+            });
+
+        });
+
+    </script>
+
+</body>
+</html>
