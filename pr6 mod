@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Grade Calculator</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="min-h-screen bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100 flex items-center justify-center p-5">
+
+    <div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl p-8">
+
+        <!-- Heading -->
+        <div class="text-center mb-6">
+            <h1 class="text-3xl font-bold text-blue-700">
+                Student Grade Calculator
+            </h1>
+            <p class="text-gray-500 mt-2">
+                Enter marks to calculate total, percentage and grade
+            </p>
+        </div>
+
+        <!-- Student Name -->
+        <div class="mb-4">
+            <label class="block text-gray-700 font-semibold mb-2">
+                Student Name
+            </label>
+
+            <input
+                type="text"
+                id="studentName"
+                placeholder="Enter student name"
+                class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+        </div>
+
+        <!-- Marks -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+            <div>
+                <label class="block text-gray-700 font-semibold mb-2">
+                    Subject 1
+                </label>
+
+                <input
+                    type="number"
+                    id="mark1"
+                    placeholder="0 - 100"
+                    min="0"
+                    max="100"
+                    class="mark w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+            </div>
+
+            <div>
+                <label class="block text-gray-700 font-semibold mb-2">
+                    Subject 2
+                </label>
+
+                <input
+                    type="number"
+                    id="mark2"
+                    placeholder="0 - 100"
+                    min="0"
+                    max="100"
+                    class="mark w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+            </div>
+
+            <div>
+                <label class="block text-gray-700 font-semibold mb-2">
+                    Subject 3
+                </label>
+
+                <input
+                    type="number"
+                    id="mark3"
+                    placeholder="0 - 100"
+                    min="0"
+                    max="100"
+                    class="mark w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+            </div>
+
+            <div>
+                <label class="block text-gray-700 font-semibold mb-2">
+                    Subject 4
+                </label>
+
+                <input
+                    type="number"
+                    id="mark4"
+                    placeholder="0 - 100"
+                    min="0"
+                    max="100"
+                    class="mark w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+            </div>
+
+            <div class="sm:col-span-2">
+                <label class="block text-gray-700 font-semibold mb-2">
+                    Subject 5
+                </label>
+
+                <input
+                    type="number"
+                    id="mark5"
+                    placeholder="0 - 100"
+                    min="0"
+                    max="100"
+                    class="mark w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+            </div>
+
+        </div>
+
+        <!-- Button -->
+        <button
+            onclick="calculateGrade()"
+            class="w-full mt-6 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-lg transition duration-300"
+        >
+            Calculate Result
+        </button>
+
+        <!-- Error -->
+        <p id="error" class="text-red-600 text-center font-semibold mt-4 hidden"></p>
+
+        <!-- Result -->
+        <div id="result" class="hidden mt-6">
+
+            <div class="bg-gray-50 rounded-xl p-5 border border-gray-200">
+
+                <h2 class="text-xl font-bold text-gray-800 text-center mb-4">
+                    Result
+                </h2>
+
+                <div class="space-y-3">
+
+                    <div class="flex justify-between">
+                        <span class="font-semibold text-gray-600">
+                            Student Name
+                        </span>
+
+                        <span id="displayName" class="font-bold text-gray-800"></span>
+                    </div>
+
+                    <div class="flex justify-between">
+                        <span class="font-semibold text-gray-600">
+                            Total Marks
+                        </span>
+
+                        <span id="total" class="font-bold text-blue-600"></span>
+                    </div>
+
+                    <div class="flex justify-between">
+                        <span class="font-semibold text-gray-600">
+                            Percentage
+                        </span>
+
+                        <span id="percentage" class="font-bold text-purple-600"></span>
+                    </div>
+
+                    <div class="flex justify-between items-center">
+                        <span class="font-semibold text-gray-600">
+                            Grade
+                        </span>
+
+                        <span
+                            id="grade"
+                            class="px-4 py-1 rounded-full font-bold bg-green-100 text-green-700"
+                        ></span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <p class="text-center text-gray-400 text-sm mt-6">
+            Student Result Management System
+        </p>
+
+    </div>
+
+
+    <!-- JavaScript -->
+    <script>
+
+        function calculateGrade() {
+
+            const name = document.getElementById("studentName").value.trim();
+
+            const marks = [
+                Number(document.getElementById("mark1").value),
+                Number(document.getElementById("mark2").value),
+                Number(document.getElementById("mark3").value),
+                Number(document.getElementById("mark4").value),
+                Number(document.getElementById("mark5").value)
+            ];
+
+            const error = document.getElementById("error");
+            const result = document.getElementById("result");
+
+            // Check student name
+            if (name === "") {
+                error.textContent = "Please enter the student name.";
+                error.classList.remove("hidden");
+                result.classList.add("hidden");
+                return;
+            }
+
+            // Check marks
+            for (let mark of marks) {
+
+                if (mark < 0 || mark > 100 || isNaN(mark)) {
+                    error.textContent = "Please enter valid marks between 0 and 100.";
+                    error.classList.remove("hidden");
+                    result.classList.add("hidden");
+                    return;
+                }
+            }
+
+            // Calculate total
+            let totalMarks = 0;
+
+            for (let mark of marks) {
+                totalMarks += mark;
+            }
+
+            // Calculate percentage
+            const percentage = totalMarks / 5;
+
+            // Calculate grade
+            let grade;
+
+            if (percentage >= 90) {
+                grade = "A+";
+            }
+            else if (percentage >= 80) {
+                grade = "A";
+            }
+            else if (percentage >= 70) {
+                grade = "B";
+            }
+            else if (percentage >= 60) {
+                grade = "C";
+            }
+            else if (percentage >= 50) {
+                grade = "D";
+            }
+            else {
+                grade = "F";
+            }
+
+            // Display result
+            document.getElementById("displayName").textContent = name;
+            document.getElementById("total").textContent = totalMarks + " / 500";
+            document.getElementById("percentage").textContent =
+                percentage.toFixed(2) + "%";
+            document.getElementById("grade").textContent = grade;
+
+            // Show result
+            error.classList.add("hidden");
+            result.classList.remove("hidden");
+        }
+
+    </script>
+
+</body>
+</html>
