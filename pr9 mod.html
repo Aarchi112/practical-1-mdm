@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Personal To-Do List</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="min-h-screen bg-gradient-to-br from-blue-100 to-purple-100 flex items-center justify-center p-5">
+
+    <div class="bg-white w-full max-w-xl rounded-2xl shadow-2xl p-8">
+
+        <!-- Heading -->
+        <div class="text-center mb-6">
+
+            <h1 class="text-3xl font-bold text-blue-700">
+                My To-Do List
+            </h1>
+
+            <p class="text-gray-500 mt-2">
+                Organize your academic and personal tasks
+            </p>
+
+        </div>
+
+
+        <!-- Add Task -->
+        <div class="flex gap-2 mb-6">
+
+            <input
+                type="text"
+                id="taskInput"
+                placeholder="Enter a task..."
+                class="flex-1 border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+
+            <button
+                id="addButton"
+                class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-3 rounded-lg font-semibold"
+            >
+                Add
+            </button>
+
+        </div>
+
+
+        <!-- Task List -->
+        <ul id="taskList" class="space-y-3">
+        </ul>
+
+
+        <!-- Empty Message -->
+        <p
+            id="emptyMessage"
+            class="text-center text-gray-400 mt-5"
+        >
+            No tasks added yet.
+        </p>
+
+
+        <!-- Task Counter -->
+        <div class="mt-6 text-center text-gray-600">
+
+            Total Tasks:
+            <span
+                id="taskCount"
+                class="font-bold text-blue-600"
+            >
+                0
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- JavaScript -->
+    <script>
+
+        // Get HTML elements
+        const taskInput = document.getElementById("taskInput");
+        const addButton = document.getElementById("addButton");
+        const taskList = document.getElementById("taskList");
+        const emptyMessage = document.getElementById("emptyMessage");
+        const taskCount = document.getElementById("taskCount");
+
+
+        // Add task function
+        function addTask() {
+
+            const taskText = taskInput.value.trim();
+
+            // Check empty task
+            if (taskText === "") {
+                alert("Please enter a task.");
+                return;
+            }
+
+
+            // Create list item
+            const li = document.createElement("li");
+
+            li.className =
+                "flex items-center justify-between bg-gray-50 border rounded-lg p-4";
+
+
+            // Create task text
+            const span = document.createElement("span");
+
+            span.textContent = taskText;
+
+            span.className = "text-gray-700 font-medium";
+
+
+            // Create button container
+            const buttonContainer = document.createElement("div");
+
+            buttonContainer.className = "flex gap-2";
+
+
+            // Complete button
+            const completeButton = document.createElement("button");
+
+            completeButton.textContent = "✓";
+
+            completeButton.className =
+                "bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded";
+
+
+            // Delete button
+            const deleteButton = document.createElement("button");
+
+            deleteButton.textContent = "Delete";
+
+            deleteButton.className =
+                "bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded";
+
+
+            // Mark task completed
+            completeButton.addEventListener("click", function() {
+
+                span.classList.toggle("line-through");
+
+                span.classList.toggle("text-gray-400");
+
+            });
+
+
+            // Delete task
+            deleteButton.addEventListener("click", function() {
+
+                li.remove();
+
+                updateTaskCount();
+
+            });
+
+
+            // Add buttons
+            buttonContainer.appendChild(completeButton);
+            buttonContainer.appendChild(deleteButton);
+
+
+            // Add text and buttons to list item
+            li.appendChild(span);
+            li.appendChild(buttonContainer);
+
+
+            // Add list item to task list
+            taskList.appendChild(li);
+
+
+            // Clear input
+            taskInput.value = "";
+
+            taskInput.focus();
+
+
+            // Update count
+            updateTaskCount();
+
+        }
+
+
+        // Update task count
+        function updateTaskCount() {
+
+            const count = taskList.children.length;
+
+            taskCount.textContent = count;
+
+
+            // Show/hide empty message
+            if (count === 0) {
+
+                emptyMessage.classList.remove("hidden");
+
+            } else {
+
+                emptyMessage.classList.add("hidden");
+
+            }
+
+        }
+
+
+        // Add task when button is clicked
+        addButton.addEventListener("click", addTask);
+
+
+        // Add task when Enter key is pressed
+        taskInput.addEventListener("keydown", function(event) {
+
+            if (event.key === "Enter") {
+                addTask();
+            }
+
+        });
+
+    </script>
+
+</body>
+</html>
